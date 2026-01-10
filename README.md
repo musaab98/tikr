@@ -1,1 +1,1 @@
-Looping audio player
+Looping audio player.
