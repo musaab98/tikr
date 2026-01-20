@@ -1,0 +1,46 @@
+# === Node / JS ===
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# === TypeScript ===
+*.tsbuildinfo
+
+# === Build outputs ===
+dist/
+build/
+frontend/dist/
+backend/dist/
+
+# === Environment files ===
+.env
+.env.local
+.env.*.local
+
+# === SQLite / local data ===
+*.db
+*.sqlite
+*.sqlite3
+backend/data/
+data/
+
+# === Uploaded audio files ===
+*.mp3
+*.wav
+*.ogg
+*.m4a
+*.flac
+
+# === Vite ===
+.vite/
+
+# === OS / Editor ===
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# === Docker ===
+docker-data/
