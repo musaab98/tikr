@@ -1,0 +1,69 @@
+interface LoopEditorProps {
+  currentTime: number;
+  loopStart: number | null;
+  loopEnd: number | null;
+  isLooping: boolean;
+  onSetStart: () => void;
+  onSetEnd: () => void;
+  onToggleLoop: () => void;
+  onSaveLoop: (label: string) => void;
+}
+
+function formatTime(seconds: number | null): string {
+  if (seconds === null) return '--:--';
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${mins}:${secs.toString().padStart(2, '0')}`;
+}
+
+export function LoopEditor({
+  currentTime,
+  loopStart,
+  loopEnd,
+  isLooping,
+  onSetStart,
+  onSetEnd,
+  onToggleLoop,
+  onSaveLoop,
+}: LoopEditorProps) {
+  const canSave = loopStart !== null && loopEnd !== null && loopEnd > loopStart;
+
+  const handleSave = () => {
+    const label = prompt('Enter loop label:', `Loop ${formatTime(loopStart)}-${formatTime(loopEnd)}`);
+    if (label) {
+      onSaveLoop(label);
+    }
+  };
+
+  return (
+    <div className="loop-editor">
+      <h3>Loop Editor</h3>
+      <p className="current-time">Current: {formatTime(currentTime)}</p>
+
+      <div className="loop-controls">
+        <div className="loop-point">
+          <button onClick={onSetStart} className="set-btn start">
+            Set Start (S)
+          </button>
+          <span>Start: {formatTime(loopStart)}</span>
+        </div>
+
+        <div className="loop-point">
+          <button onClick={onSetEnd} className="set-btn end">
+            Set End (E)
+          </button>
+          <span>End: {formatTime(loopEnd)}</span>
+        </div>
+      </div>
+
+      <div className="loop-actions">
+        <button onClick={onToggleLoop} className={`toggle-btn ${isLooping ? 'active' : ''}`}>
+          {isLooping ? '🔁 Looping ON (L)' : '⭕ Looping OFF (L)'}
+        </button>
+        <button onClick={handleSave} disabled={!canSave} className="save-btn">
+          💾 Save Loop
+        </button>
+      </div>
+    </div>
+  );
+}

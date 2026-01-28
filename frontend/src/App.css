@@ -1,0 +1,329 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #f5f5f5;
+}
+
+.app {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 3px solid #007bff;
+}
+
+header h1 {
+  margin: 0;
+  color: #007bff;
+  font-size: 2rem;
+}
+
+header p {
+  margin: 5px 0 0;
+  color: #666;
+}
+
+h2 {
+  margin: 20px 0 10px;
+}
+
+h3 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Audio Uploader */
+.audio-uploader {
+  margin-bottom: 20px;
+}
+
+.upload-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background: #007bff;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.upload-btn:hover {
+  background: #0056b3;
+}
+
+/* Audio List */
+.audio-list {
+  margin-bottom: 20px;
+}
+
+.audio-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.audio-buttons button {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.audio-buttons button:hover {
+  border-color: #007bff;
+}
+
+.audio-buttons button.selected {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+/* Audio Player */
+.audio-player {
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.play-btn {
+  padding: 12px 32px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #28a745;
+  color: white;
+  transition: background 0.2s;
+}
+
+.play-btn:hover {
+  background: #1e7e34;
+}
+
+.play-btn.playing {
+  background: #dc3545;
+}
+
+.play-btn.playing:hover {
+  background: #bd2130;
+}
+
+.progress-container {
+  margin-top: 15px;
+}
+
+.progress-slider {
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+}
+
+.time-display {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
+}
+
+/* Loop Editor */
+.loop-editor {
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.loop-editor h3 {
+  margin-top: 0;
+}
+
+.current-time {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.loop-controls {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.loop-point {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.set-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.set-btn.start {
+  background: #17a2b8;
+  color: white;
+}
+
+.set-btn.end {
+  background: #ffc107;
+  color: #000;
+}
+
+.loop-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.toggle-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #6c757d;
+  color: white;
+}
+
+.toggle-btn.active {
+  background: #28a745;
+}
+
+.save-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #007bff;
+  color: white;
+}
+
+.save-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Loop List */
+.loop-list {
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.loop-list.empty {
+  color: #666;
+  text-align: center;
+}
+
+.loop-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.loop-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  margin-bottom: 8px;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.loop-item:hover {
+  border-color: #007bff;
+}
+
+.loop-item.active {
+  background: #e7f3ff;
+  border-color: #007bff;
+  border-width: 2px;
+}
+
+.loop-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.loop-info span {
+  font-size: 13px;
+  color: #666;
+}
+
+.delete-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  background: #dc3545;
+  color: white;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #bd2130;
+}
+
+/* Shortcuts Help */
+.shortcuts-help {
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.shortcuts-help h4 {
+  margin: 0 0 10px;
+}
+
+.shortcuts-help ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.shortcuts-help li {
+  margin-bottom: 4px;
+}
+
+.shortcuts-help kbd {
+  display: inline-block;
+  padding: 2px 6px;
+  background: #eee;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-family: monospace;
+  font-size: 12px;
+}
+
+/* Empty State */
+.empty-state {
+  padding: 40px;
+  text-align: center;
+  color: #666;
+  font-size: 18px;
+}
