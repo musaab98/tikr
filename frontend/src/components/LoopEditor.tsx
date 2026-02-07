@@ -3,10 +3,12 @@ interface LoopEditorProps {
   loopStart: number | null;
   loopEnd: number | null;
   isLooping: boolean;
+  audioName: string;
   onSetStart: () => void;
   onSetEnd: () => void;
   onToggleLoop: () => void;
   onSaveLoop: (label: string) => void;
+  onDeleteAudio: () => void;
 }
 
 function formatTime(seconds: number | null): string {
@@ -21,10 +23,12 @@ export function LoopEditor({
   loopStart,
   loopEnd,
   isLooping,
+  audioName,
   onSetStart,
   onSetEnd,
   onToggleLoop,
   onSaveLoop,
+  onDeleteAudio,
 }: LoopEditorProps) {
   const canSave = loopStart !== null && loopEnd !== null && loopEnd > loopStart;
 
@@ -58,10 +62,20 @@ export function LoopEditor({
 
       <div className="loop-actions">
         <button onClick={onToggleLoop} className={`toggle-btn ${isLooping ? 'active' : ''}`}>
-          {isLooping ? '🔁 Looping ON (L)' : '⭕ Looping OFF (L)'}
+          {isLooping ? '🔁 Looping ON (O)' : '⭕ Looping OFF (O)'}
         </button>
         <button onClick={handleSave} disabled={!canSave} className="save-btn">
           💾 Save Loop
+        </button>
+        <button
+          onClick={() => {
+            if (window.confirm(`Delete "${audioName}" and all its loops? This cannot be undone.`)) {
+              onDeleteAudio();
+            }
+          }}
+          className="delete-audio-btn"
+        >
+          🗑️ Delete Audio
         </button>
       </div>
     </div>

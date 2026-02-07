@@ -60,4 +60,11 @@ export const api = {
     });
     if (!res.ok) throw new Error('Failed to delete loop');
   },
+
+  async deleteAudio(id: string): Promise<void> {
+    const res = await fetch(`${API_BASE}/audio/${id}`, {
+      method: 'DELETE',
+    });
+    if (!res.ok) throw new Error('Failed to delete audio');
+  },
 };

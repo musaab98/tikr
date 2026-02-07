@@ -2,14 +2,34 @@
   box-sizing: border-box;
 }
 
+:root {
+  --mauve: #faa6ff;
+  --deep-lilac: #7353ba;
+  --dark-amethyst: #2f195f;
+  --ink-black: #0f1020;
+  --pink-orchid: #efc3f5;
+}
+
 body {
   margin: 0;
   font-family: system-ui, -apple-system, sans-serif;
-  background: #f5f5f5;
+  background: var(--ink-black);
+  color: var(--pink-orchid);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+#root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .app {
   max-width: 800px;
+  width: 100%;
   margin: 0 auto;
   padding: 20px;
 }
@@ -17,18 +37,18 @@ body {
 header {
   margin-bottom: 30px;
   padding-bottom: 15px;
-  border-bottom: 3px solid #007bff;
+  border-bottom: 3px solid var(--deep-lilac);
 }
 
 header h1 {
   margin: 0;
-  color: #007bff;
+  color: var(--mauve);
   font-size: 2rem;
 }
 
 header p {
   margin: 5px 0 0;
-  color: #666;
+  color: var(--pink-orchid);
 }
 
 h2 {
@@ -38,7 +58,7 @@ h2 {
 h3 {
   margin: 0 0 10px;
   font-size: 1rem;
-  color: #333;
+  color: var(--pink-orchid);
 }
 
 /* Audio Uploader */
@@ -49,8 +69,8 @@ h3 {
 .upload-btn {
   display: inline-block;
   padding: 12px 24px;
-  background: #007bff;
-  color: white;
+  background: var(--deep-lilac);
+  color: var(--pink-orchid);
   border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
@@ -58,7 +78,8 @@ h3 {
 }
 
 .upload-btn:hover {
-  background: #0056b3;
+  background: var(--mauve);
+  color: var(--ink-black);
 }
 
 /* Audio List */
@@ -74,29 +95,30 @@ h3 {
 
 .audio-buttons button {
   padding: 8px 16px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--deep-lilac);
   border-radius: 4px;
-  background: white;
+  background: var(--dark-amethyst);
+  color: var(--pink-orchid);
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .audio-buttons button:hover {
-  border-color: #007bff;
+  border-color: var(--mauve);
 }
 
 .audio-buttons button.selected {
-  background: #007bff;
-  color: white;
-  border-color: #007bff;
+  background: var(--mauve);
+  color: var(--ink-black);
+  border-color: var(--mauve);
 }
 
 /* Audio Player */
 .audio-player {
   padding: 20px;
-  background: white;
+  background: var(--dark-amethyst);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.35);
   margin-bottom: 20px;
 }
 
@@ -106,21 +128,24 @@ h3 {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  background: #28a745;
-  color: white;
+  background: var(--deep-lilac);
+  color: var(--pink-orchid);
   transition: background 0.2s;
 }
 
 .play-btn:hover {
-  background: #1e7e34;
+  background: var(--mauve);
+  color: var(--ink-black);
 }
 
 .play-btn.playing {
-  background: #dc3545;
+  background: var(--mauve);
+  color: var(--ink-black);
 }
 
 .play-btn.playing:hover {
-  background: #bd2130;
+  background: var(--pink-orchid);
+  color: var(--ink-black);
 }
 
 .progress-container {
@@ -137,16 +162,44 @@ h3 {
   display: flex;
   justify-content: space-between;
   font-size: 14px;
-  color: #666;
+  color: var(--pink-orchid);
   margin-top: 5px;
+}
+
+.audio-controls {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.audio-controls .spacer {
+  height: 1px;
+}
+
+.volume-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.volume-label {
+  font-size: 16px;
+  color: var(--pink-orchid);
+}
+
+.volume-slider {
+  width: 140px;
+  cursor: pointer;
 }
 
 /* Loop Editor */
 .loop-editor {
   padding: 20px;
-  background: white;
+  background: var(--dark-amethyst);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.35);
   margin-bottom: 20px;
 }
 
@@ -156,7 +209,7 @@ h3 {
 
 .current-time {
   font-size: 14px;
-  color: #666;
+  color: var(--pink-orchid);
   margin-bottom: 15px;
 }
 
@@ -181,13 +234,13 @@ h3 {
 }
 
 .set-btn.start {
-  background: #17a2b8;
-  color: white;
+  background: var(--deep-lilac);
+  color: var(--pink-orchid);
 }
 
 .set-btn.end {
-  background: #ffc107;
-  color: #000;
+  background: var(--mauve);
+  color: var(--ink-black);
 }
 
 .loop-actions {
@@ -200,12 +253,13 @@ h3 {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  background: #6c757d;
-  color: white;
+  background: var(--deep-lilac);
+  color: var(--pink-orchid);
 }
 
 .toggle-btn.active {
-  background: #28a745;
+  background: var(--mauve);
+  color: var(--ink-black);
 }
 
 .save-btn {
@@ -213,26 +267,42 @@ h3 {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  background: #007bff;
-  color: white;
+  background: var(--deep-lilac);
+  color: var(--pink-orchid);
 }
 
 .save-btn:disabled {
-  background: #ccc;
+  background: #4a3a78;
   cursor: not-allowed;
+}
+
+.delete-audio-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #5c1a1a;
+  color: #ff8a8a;
+  margin-left: auto;
+  transition: background 0.2s;
+}
+
+.delete-audio-btn:hover {
+  background: #8b2020;
+  color: #fff;
 }
 
 /* Loop List */
 .loop-list {
   padding: 20px;
-  background: white;
+  background: var(--dark-amethyst);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.35);
   margin-bottom: 20px;
 }
 
 .loop-list.empty {
-  color: #666;
+  color: var(--pink-orchid);
   text-align: center;
 }
 
@@ -248,20 +318,20 @@ h3 {
   align-items: center;
   padding: 12px;
   margin-bottom: 8px;
-  background: #f8f9fa;
-  border: 1px solid #dee2e6;
+  background: #1a1633;
+  border: 1px solid var(--deep-lilac);
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .loop-item:hover {
-  border-color: #007bff;
+  border-color: var(--mauve);
 }
 
 .loop-item.active {
-  background: #e7f3ff;
-  border-color: #007bff;
+  background: #3a2a6b;
+  border-color: var(--mauve);
   border-width: 2px;
 }
 
@@ -273,26 +343,27 @@ h3 {
 
 .loop-info span {
   font-size: 13px;
-  color: #666;
+  color: var(--pink-orchid);
 }
 
 .delete-btn {
   padding: 6px 12px;
   border: none;
   border-radius: 4px;
-  background: #dc3545;
-  color: white;
+  background: var(--mauve);
+  color: var(--ink-black);
   cursor: pointer;
 }
 
 .delete-btn:hover {
-  background: #bd2130;
+  background: var(--pink-orchid);
+  color: var(--ink-black);
 }
 
 /* Shortcuts Help */
 .shortcuts-help {
   padding: 15px;
-  background: #f8f9fa;
+  background: var(--dark-amethyst);
   border-radius: 8px;
   font-size: 14px;
 }
@@ -313,8 +384,8 @@ h3 {
 .shortcuts-help kbd {
   display: inline-block;
   padding: 2px 6px;
-  background: #eee;
-  border: 1px solid #ccc;
+  background: #1a1633;
+  border: 1px solid var(--deep-lilac);
   border-radius: 3px;
   font-family: monospace;
   font-size: 12px;
@@ -324,6 +395,6 @@ h3 {
 .empty-state {
   padding: 40px;
   text-align: center;
-  color: #666;
+  color: var(--pink-orchid);
   font-size: 18px;
 }

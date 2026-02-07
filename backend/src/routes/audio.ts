@@ -64,6 +64,20 @@ router.get('/:id', async (req: Request, res: Response) => {
   }
 });
 
+router.delete('/:id', async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id as string;
+    const deleted = await store.deleteAudio(id);
+    if (!deleted) {
+      res.status(404).json({ error: 'Audio not found' });
+      return;
+    }
+    res.json({ success: true });
+  } catch {
+    res.status(500).json({ error: 'Failed to delete audio' });
+  }
+});
+
 router.get('/:id/stream', async (req: Request, res: Response) => {
   try {
     const id = req.params.id as string;

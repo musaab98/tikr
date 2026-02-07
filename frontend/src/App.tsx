@@ -19,7 +19,18 @@ function App() {
 
   const audioUrl = selectedAudio ? api.getStreamUrl(selectedAudio.id) : null;
 
-  const { isPlaying, currentTime, duration, togglePlay, seek } = useAudioLoop({
+  const {
+    isPlaying,
+    currentTime,
+    duration,
+    togglePlay,
+    seek,
+    volume,
+    setVolume,
+    adjustVolume,
+    toggleMute,
+    isMuted,
+  } = useAudioLoop({
     audioUrl,
     activeLoop: isLooping ? activeLoop : null,
     isLooping,
@@ -87,6 +98,21 @@ function App() {
     seek(loop.start);
   };
 
+  const handleDeleteAudio = async () => {
+    if (!selectedAudio) return;
+    try {
+      await api.deleteAudio(selectedAudio.id);
+      setAudioList((prev) => prev.filter((a) => a.id !== selectedAudio.id));
+      setSelectedAudio(null);
+      setLoops([]);
+      setActiveLoop(null);
+      setIsLooping(false);
+    } catch (err) {
+      alert('Failed to delete audio');
+      console.error(err);
+    }
+  };
+
   const handleDeleteLoop = async (id: string) => {
     try {
       await api.deleteLoop(id);
@@ -106,10 +132,36 @@ function App() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement) return;
 
-      switch (e.key.toLowerCase()) {
+      switch (e.key) {
         case ' ':
+        case 'k':
           e.preventDefault();
           togglePlay();
+          break;
+        case 'ArrowLeft':
+          e.preventDefault();
+          seek(Math.max(0, currentTime - 5));
+          break;
+        case 'ArrowRight':
+          e.preventDefault();
+          seek(Math.min(duration, currentTime + 5));
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          adjustVolume(0.05);
+          break;
+        case 'ArrowDown':
+          e.preventDefault();
+          adjustVolume(-0.05);
+          break;
+        case 'j':
+          seek(Math.max(0, currentTime - 10));
+          break;
+        case 'l':
+          seek(Math.min(duration, currentTime + 10));
+          break;
+        case 'm':
+          toggleMute();
           break;
         case 's':
           handleSetStart();
@@ -117,7 +169,7 @@ function App() {
         case 'e':
           handleSetEnd();
           break;
-        case 'l':
+        case 'o':
           handleToggleLoop();
           break;
         default:
@@ -132,13 +184,24 @@ function App() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [togglePlay, handleSetStart, handleSetEnd, handleToggleLoop, loops]);
+  }, [
+    togglePlay,
+    handleSetStart,
+    handleSetEnd,
+    handleToggleLoop,
+    loops,
+    seek,
+    currentTime,
+    duration,
+    adjustVolume,
+    toggleMute,
+  ]);
 
   return (
     <div className="app">
       <header>
         <h1>🎵 tikr</h1>
-        <p>Local-first audio looper for memorization</p>
+        <p>Smart audio player with looping features.</p>
       </header>
 
       <main>
@@ -169,8 +232,11 @@ function App() {
               isPlaying={isPlaying}
               currentTime={currentTime}
               duration={duration}
+              volume={volume}
+              isMuted={isMuted}
               onTogglePlay={togglePlay}
               onSeek={seek}
+              onVolumeChange={setVolume}
             />
 
             <LoopEditor
@@ -178,10 +244,12 @@ function App() {
               loopStart={loopStart}
               loopEnd={loopEnd}
               isLooping={isLooping}
+              audioName={selectedAudio.originalName}
               onSetStart={handleSetStart}
               onSetEnd={handleSetEnd}
               onToggleLoop={handleToggleLoop}
               onSaveLoop={handleSaveLoop}
+              onDeleteAudio={handleDeleteAudio}
             />
 
             <LoopList
@@ -194,10 +262,14 @@ function App() {
             <div className="shortcuts-help">
               <h4>⌨️ Keyboard Shortcuts</h4>
               <ul>
-                <li><kbd>Space</kbd> Play/Pause</li>
+                <li><kbd>Space</kbd> / <kbd>K</kbd> Play/Pause</li>
+                <li><kbd>←</kbd> / <kbd>→</kbd> Advance ±5s</li>
+                <li><kbd>J</kbd> / <kbd>L</kbd> Advance ±10s</li>
+                <li><kbd>↑</kbd> / <kbd>↓</kbd> Volume ±5%</li>
+                <li><kbd>M</kbd> Mute</li>
                 <li><kbd>S</kbd> Set loop start</li>
                 <li><kbd>E</kbd> Set loop end</li>
-                <li><kbd>L</kbd> Toggle looping</li>
+                <li><kbd>O</kbd> Toggle looping</li>
                 <li><kbd>1-9</kbd> Select loop</li>
               </ul>
             </div>

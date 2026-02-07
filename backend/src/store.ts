@@ -3,6 +3,7 @@ import path from 'path';
 import { Audio, Loop } from './types';
 
 const DATA_DIR = path.join(__dirname, '../data');
+const AUDIO_DIR = path.join(DATA_DIR, 'audio');
 const AUDIO_FILE = path.join(DATA_DIR, 'audio.json');
 const LOOPS_FILE = path.join(DATA_DIR, 'loops.json');
 
@@ -55,6 +56,33 @@ export const store = {
     const filtered = all.filter((l) => l.id !== id);
     if (filtered.length === all.length) return false;
     await writeJSON(LOOPS_FILE, filtered);
+    return true;
+  },
+
+  async deleteLoopsByAudioId(audioId: string): Promise<void> {
+    const all = await this.getAllLoops();
+    const filtered = all.filter((l) => l.audioId !== audioId);
+    await writeJSON(LOOPS_FILE, filtered);
+  },
+
+  async deleteAudio(id: string): Promise<boolean> {
+    const audio = await this.getAudio(id);
+    if (!audio) return false;
+
+    // Remove the audio file from disk
+    try {
+      await fs.unlink(path.join(AUDIO_DIR, audio.filename));
+    } catch {
+      // File may already be gone
+    }
+
+    // Remove all loops for this audio
+    await this.deleteLoopsByAudioId(id);
+
+    // Remove audio metadata
+    const all = await this.getAllAudio();
+    const filtered = all.filter((a) => a.id !== id);
+    await writeJSON(AUDIO_FILE, filtered);
     return true;
   },
 };

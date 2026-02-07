@@ -12,6 +12,10 @@ export function useAudioLoop({ audioUrl, activeLoop, isLooping }: UseAudioLoopOp
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(1);
+  const [isMuted, setIsMuted] = useState(false);
+
+  const clampVolume = useCallback((value: number) => Math.min(1, Math.max(0, value)), []);
 
   // Create audio element when URL changes
   useEffect(() => {
@@ -24,6 +28,8 @@ export function useAudioLoop({ audioUrl, activeLoop, isLooping }: UseAudioLoopOp
     }
 
     const audio = new Audio(audioUrl);
+    audio.volume = volume;
+    audio.muted = isMuted;
     audioRef.current = audio;
 
     const onLoadedMetadata = () => setDuration(audio.duration);
@@ -41,6 +47,19 @@ export function useAudioLoop({ audioUrl, activeLoop, isLooping }: UseAudioLoopOp
       audio.removeEventListener('ended', onEnded);
     };
   }, [audioUrl]);
+
+  // Keep volume in sync with the audio element
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.volume = volume;
+  }, [volume]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.muted = isMuted;
+  }, [isMuted]);
 
   // Handle looping logic
   useEffect(() => {
@@ -76,11 +95,37 @@ export function useAudioLoop({ audioUrl, activeLoop, isLooping }: UseAudioLoopOp
     setCurrentTime(time);
   }, []);
 
+  const setVolumeSafe = useCallback(
+    (value: number) => {
+      const next = clampVolume(value);
+      setVolume(next);
+      if (next > 0) setIsMuted(false);
+    },
+    [clampVolume]
+  );
+
+  const adjustVolume = useCallback(
+    (delta: number) => {
+      setVolume((prev) => clampVolume(prev + delta));
+      setIsMuted(false);
+    },
+    [clampVolume]
+  );
+
+  const toggleMute = useCallback(() => {
+    setIsMuted((prev) => !prev);
+  }, []);
+
   return {
     isPlaying,
     currentTime,
     duration,
     togglePlay,
     seek,
+    volume,
+    setVolume: setVolumeSafe,
+    adjustVolume,
+    isMuted,
+    toggleMute,
   };
 }
