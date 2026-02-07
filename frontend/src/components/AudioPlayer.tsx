@@ -1,3 +1,5 @@
+import { formatTime } from '../utils/format';
+
 interface AudioPlayerProps {
   isPlaying: boolean;
   currentTime: number;
@@ -7,12 +9,6 @@ interface AudioPlayerProps {
   onTogglePlay: () => void;
   onSeek: (time: number) => void;
   onVolumeChange: (volume: number) => void;
-}
-
-function formatTime(seconds: number): string {
-  const mins = Math.floor(seconds / 60);
-  const secs = Math.floor(seconds % 60);
-  return `${mins}:${secs.toString().padStart(2, '0')}`;
 }
 
 export function AudioPlayer({

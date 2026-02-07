@@ -3,7 +3,7 @@ import multer from 'multer';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { store } from '../store';
-import { Audio } from '../types';
+import type { Audio } from '../types';
 
 const router = Router();
 const AUDIO_DIR = path.join(__dirname, '../../data/audio');

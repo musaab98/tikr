@@ -1,3 +1,5 @@
+import { formatTime } from '../utils/format';
+
 interface LoopEditorProps {
   currentTime: number;
   loopStart: number | null;
@@ -9,13 +11,6 @@ interface LoopEditorProps {
   onToggleLoop: () => void;
   onSaveLoop: (label: string) => void;
   onDeleteAudio: () => void;
-}
-
-function formatTime(seconds: number | null): string {
-  if (seconds === null) return '--:--';
-  const mins = Math.floor(seconds / 60);
-  const secs = Math.floor(seconds % 60);
-  return `${mins}:${secs.toString().padStart(2, '0')}`;
 }
 
 export function LoopEditor({
@@ -62,7 +57,7 @@ export function LoopEditor({
 
       <div className="loop-actions">
         <button onClick={onToggleLoop} className={`toggle-btn ${isLooping ? 'active' : ''}`}>
-          {isLooping ? '🔁 Looping ON (O)' : '⭕ Looping OFF (O)'}
+          {isLooping ? '🔁 Looping ON (U)' : '⭕ Looping OFF (U)'}
         </button>
         <button onClick={handleSave} disabled={!canSave} className="save-btn">
           💾 Save Loop

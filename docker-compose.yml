@@ -1,0 +1,10 @@
+services:
+  tikr:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - tikr-data:/app/backend/data
+
+volumes:
+  tikr-data:

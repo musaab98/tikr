@@ -1,8 +1,12 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
+import { mkdirSync } from 'fs';
 import audioRoutes from './routes/audio';
 import loopRoutes from './routes/loops';
+
+// Ensure data directories exist
+mkdirSync(path.join(__dirname, '../data/audio'), { recursive: true });
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -17,6 +21,9 @@ app.use('/api', loopRoutes);
 // Serve static frontend (in production)
 const frontendDist = path.join(__dirname, '../../frontend/dist');
 app.use(express.static(frontendDist));
+app.get('/{*splat}', (_req, res) => {
+  res.sendFile(path.join(frontendDist, 'index.html'));
+});
 
 app.listen(PORT, () => {
   console.log(`🎵 tikr server running on http://localhost:${PORT}`);

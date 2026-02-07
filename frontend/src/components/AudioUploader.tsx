@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface AudioUploaderProps {
   onUpload: (file: File) => void;
 }

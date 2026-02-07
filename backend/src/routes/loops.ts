@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { store } from '../store';
-import { Loop } from '../types';
+import type { Loop } from '../types';
 
 const router = Router();
 

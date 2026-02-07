@@ -169,7 +169,7 @@ function App() {
         case 'e':
           handleSetEnd();
           break;
-        case 'o':
+        case 'u':
           handleToggleLoop();
           break;
         default:
@@ -200,7 +200,7 @@ function App() {
   return (
     <div className="app">
       <header>
-        <h1>🎵 tikr</h1>
+        <h1>tikr</h1>
         <p>Smart audio player with looping features.</p>
       </header>
 
@@ -269,7 +269,7 @@ function App() {
                 <li><kbd>M</kbd> Mute</li>
                 <li><kbd>S</kbd> Set loop start</li>
                 <li><kbd>E</kbd> Set loop end</li>
-                <li><kbd>O</kbd> Toggle looping</li>
+                <li><kbd>U</kbd> Toggle looping</li>
                 <li><kbd>1-9</kbd> Select loop</li>
               </ul>
             </div>

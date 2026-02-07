@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs';
 import path from 'path';
-import { Audio, Loop } from './types';
+import type { Audio, Loop } from './types';
 
 const DATA_DIR = path.join(__dirname, '../data');
 const AUDIO_DIR = path.join(DATA_DIR, 'audio');
