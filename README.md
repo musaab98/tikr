@@ -1,6 +1,6 @@
 # tikr
 
-A local-first audio looper for memorization practice.
+A lightweight audio player designed for looping short segments to support focused memorization practice.
 
 Upload an audio file, mark loop segments, and repeat them seamlessly. Everything runs on your machine — no cloud, no accounts, no complexity.
 
