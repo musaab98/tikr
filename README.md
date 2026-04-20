@@ -29,7 +29,7 @@ Frontend: **http://localhost:5173** · Backend: **http://localhost:3001**
 ## Usage
 
 1. Upload an audio file
-2. Press **S** to set a loop start, **E** for end
+2. Press **S** to set start of loop, **E** for end
 3. Press **U** to toggle looping
 4. Save loops and switch between them with **1–9**
 
